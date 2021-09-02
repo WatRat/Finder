@@ -8,3 +8,7 @@ class Counter:
     def get_counter(self):
         return self.count
 
+
+class Output:
+    def __init__(self, logfile):
+        self.log = logfile
