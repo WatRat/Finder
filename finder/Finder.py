@@ -139,7 +139,8 @@ def compare_hash(duplicates):
     return out
 
 
-if __name__ == '__main__':
+def run():
+    silent = False
     log = Logger()
     if args.silent:
         silent = True
@@ -225,3 +226,7 @@ if __name__ == '__main__':
             log.write("files older than %s:" % args.old, old)
     else:
         print('how did you do that? -_-')
+
+
+if __name__ == '__main__':
+    run()

@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
    name='finder',
@@ -9,6 +9,6 @@ setup(
    packages=['finder'],
    install_requires=['progress'],
    entry_points={
-      'console_scripts': ['finder=Finder:main'],
+      'console_scripts': ['Finder = finder.Finder:run'],
    }
 )
