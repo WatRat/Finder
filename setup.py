@@ -1,11 +1,14 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-   name='Finder',
-   version='v1.0 beta',
+   name='finder',
+   version='1',
    description='This python script is designed to easily find and process many files',
    author='Bohdan Belskiy',
    author_email='bogdanbelskiylntu@gmail.com',
-   packages=['Finder'],
-   install_requires=['progress']
+   packages=['finder'],
+   install_requires=['progress'],
+   entry_points={
+      'console_scripts': ['finder=Finder:main'],
+   }
 )

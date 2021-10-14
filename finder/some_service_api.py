@@ -10,7 +10,7 @@ class Counter:
 
 
 class Logger:
-    def __init__(self, logfile='log', main_title="default title"):
+    def __init__(self, logfile='log', main_title="finder log \n"):
         if not 'txt' in logfile:
             logfile +='.txt'
         self.log = open(logfile, 'w')

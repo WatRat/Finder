@@ -8,6 +8,7 @@ import time
 import re
 from some_service_api import Logger
 
+
 silent = False
 output = False
 files = []
@@ -22,6 +23,7 @@ mode.add_argument('-t', '--type', action='store', help='search file extension (i
 mode.add_argument('--old', action='store', help='search old file')
 
 args = parser.parse_args()
+
 
 def scan_files(path):
     if not os.path.exists(path):
@@ -45,8 +47,7 @@ def search_extension(extension):
         if str(file_path).endswith(extension):
             search_result.append(Path(file_path))
             counter.loop_counter()
-        if not silent:
-            bar.next()
+        bar.next()
     bar.finish()
     return search_result, counter.get_counter()
 
@@ -67,8 +68,7 @@ def search_more_extension(specific_type=None):
             png_counter.loop_counter()
         elif specific_type is not None and str(file_path).endswith(specific_type):
             specific.append(Path(file_path))
-        if not silent:
-            bar.next()
+        bar.next()
     bar.finish()
     return jpg, png, jpg_counter.get_counter(), png_counter.get_counter()
 
@@ -82,8 +82,7 @@ def search_large(size):
         if Path(file).stat().st_size > size:
             large.append([file, Path(file).stat().st_size])
             large_counter.loop_counter()
-        if not silent:
-            bar.next()
+        bar.next()
     return large, large_counter.get_counter()
 
 
@@ -109,15 +108,14 @@ def check_len_duplicates():
         size_list.append(Path(files[i]).stat().st_size)
     size_set = set(size_list)
     if not len(size_list) == len(size_set):
-        dublicates = []
-        bar = IncrementalBar('Searching duplicates', max=len(size_set))
+        duplicates = []
+        bar = IncrementalBar('Searching duplicates', max=len(files))
         for i in range(0, len(files)):
             for j in range(i + 1, len(files)):
                 if Path(files[i]).stat().st_size == Path(files[j]).stat().st_size:
-                    dublicates.append([Path(files[i]).as_posix(), Path(files[j]).as_posix()])
-                    if not silent:
-                        bar.next()
-        return dublicates
+                    duplicates.append([Path(files[i]).as_posix(), Path(files[j]).as_posix()])
+            bar.next()
+        return duplicates
     else:
         return None
 
@@ -162,11 +160,10 @@ if __name__ == '__main__':
             if not res == None:
                 print('\nduplicate 1\t\t\t\t\t duplicate 2')
                 for i in range(len(res)):
-                    print(res[i][0],'\t', end=' ')
-                    print(res[i][1],'\t')
+                    print(res[i][0], '\t', end=' ')
+                    print(res[i][1], '\t')
         else:
             log.write_dual('duplicate 1\t\t\t\t\t\t\t\t\t\t duplicate 2', res)
-
 
     elif args.large:
         large = search_large(args.large)
@@ -178,14 +175,13 @@ if __name__ == '__main__':
                     print(i+1, end='. ')
                     print(Path(searched_large[i][0]).name, round(searched_large[i][1]/1048576), 'mb')
             else:
-                print("\nFiles large of %s mb not found! " % (args.large))
+                print("\nFiles large of %s mb not found! " % args.large)
         else:
             log.write("Searched %s files large of %s mb:" % (args.large, large[1]), searched_large)
 
     elif args.type:
         if args.type == 'images':
             searched_ext = search_more_extension()
-            print(searched_ext)
             if not silent:
                 print('\nsearched %s images:' % (searched_ext[2]+searched_ext[3]))
                 print('png (%s):' % searched_ext[3])
