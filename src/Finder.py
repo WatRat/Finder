@@ -2,11 +2,11 @@ from pathlib import Path
 import hashlib
 import os
 from progress.bar import IncrementalBar
-from some_service_api import Counter
+from .some_service_api import Counter
 import argparse
 import time
 import re
-from some_service_api import Logger
+from .some_service_api import Logger
 
 
 silent = False
