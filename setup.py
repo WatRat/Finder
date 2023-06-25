@@ -6,9 +6,9 @@ setup(
    description='This python script is designed to easily find and process many files',
    author='Bohdan Belskiy',
    author_email='bogdanbelskiylntu@gmail.com',
-   packages=['finder'],
+   packages=find_packages(),
    install_requires=['progress'],
    entry_points={
-      'console_scripts': ['finder=Finder:main'],
+      'console_scripts': ['Finder = src.Finder:run'],
    }
 )
